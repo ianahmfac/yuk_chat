@@ -10,4 +10,9 @@ class UserService {
       "username": username,
     });
   }
+
+  static Future<Map<String, dynamic>> getUser(String uid) async {
+    final DocumentSnapshot user = await _collectionRef.doc(uid).get();
+    return user.data();
+  }
 }

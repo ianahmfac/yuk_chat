@@ -22,7 +22,10 @@ class Messages extends StatelessWidget {
           itemBuilder: (context, index) {
             final String msg = messages[index]["text"];
             final String userId = messages[index]["userId"];
-            return ChatBubble(msg, userId);
+            final String username = messages[index]["username"];
+            final Timestamp timestamp = messages[index]["createdAt"];
+            final DateTime time = DateTime.parse(timestamp.toDate().toString());
+            return ChatBubble(msg, userId, username, time);
           },
         );
       },
