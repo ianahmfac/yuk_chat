@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:yuk_chat/services/auth_service.dart';
 import 'package:yuk_chat/shared/theme.dart';
+import 'package:yuk_chat/widgets/user_pick_image.dart';
 
 class AuthForm extends StatefulWidget {
   @override
@@ -74,6 +75,7 @@ class _AuthFormState extends State<AuthForm> {
               style: titleStyle,
             ),
             SizedBox(height: 16),
+            if (!_isLogin) UserPickImage(),
             TextFormField(
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,

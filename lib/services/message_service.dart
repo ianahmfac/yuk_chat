@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:yuk_chat/models/user_app.dart';
 import 'package:yuk_chat/services/auth_service.dart';
 import 'package:yuk_chat/services/user_service.dart';
 
@@ -12,13 +13,12 @@ class MessageService {
 
   static Future sendMessage(String msg) async {
     String uid = AuthService.currentUser().uid;
-    Map<String, dynamic> userService = await UserService.getUser(uid);
-    String username = userService["username"];
+    UserApp user = await UserService.getUser(uid);
     _ref.add({
       "text": msg,
       "createdAt": Timestamp.now(),
       "userId": uid,
-      "username": username,
+      "username": user.username,
     });
   }
 }
