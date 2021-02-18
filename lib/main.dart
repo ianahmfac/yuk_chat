@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primarySwatch: Colors.indigo,
           primaryColorBrightness: Brightness.dark,
-          accentColor: Colors.amber,
+          accentColor: Colors.cyan[200],
           textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
             primary: Colors.indigo,
           )),
+          canvasColor: Color(0xFFE5E5E5),
         ),
         darkTheme: ThemeData(
           textTheme:
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primarySwatch: Colors.blue,
           primaryColorBrightness: Brightness.dark,
-          accentColor: Colors.amber,
+          accentColor: Colors.amber[200],
           textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
             primary: Colors.white,
