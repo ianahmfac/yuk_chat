@@ -38,7 +38,7 @@ class ChatBubble extends StatelessWidget {
                   _isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
               children: [
                 Text(
-                  _isMe ? "Saya" : username,
+                  _isMe ? "saya" : username,
                   style: titleStyle.copyWith(
                     fontSize: 14,
                     color: Theme.of(context).primaryColorDark,
@@ -49,7 +49,7 @@ class ChatBubble extends StatelessWidget {
                   message,
                   style: TextStyle(
                     color: Theme.of(context).primaryColorDark,
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                   textAlign: _isMe ? TextAlign.end : TextAlign.start,
                 ),

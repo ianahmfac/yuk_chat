@@ -13,6 +13,9 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   bool _isSecure = true;
   final _formKey = GlobalKey<FormState>();
+  final _emailKey = GlobalKey<FormFieldState>();
+  final _passwordKey = GlobalKey<FormFieldState>();
+  final _usernameKey = GlobalKey<FormFieldState>();
   bool _isLogin = true;
   bool _isLoading = false;
   String _email;
@@ -77,6 +80,11 @@ class _AuthFormState extends State<AuthForm> {
             SizedBox(height: 16),
             if (!_isLogin) UserPickImage(),
             TextFormField(
+              key: _emailKey,
+              onChanged: (value) async {
+                await Future.delayed(Duration(milliseconds: 1500));
+                _emailKey.currentState.validate();
+              },
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
@@ -93,6 +101,11 @@ class _AuthFormState extends State<AuthForm> {
             SizedBox(height: _isLogin ? 0 : 16),
             if (!_isLogin)
               TextFormField(
+                key: _usernameKey,
+                onChanged: (value) async {
+                  await Future.delayed(Duration(milliseconds: 1500));
+                  _usernameKey.currentState.validate();
+                },
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   labelText: "Username",
@@ -106,6 +119,11 @@ class _AuthFormState extends State<AuthForm> {
               ),
             SizedBox(height: 16),
             TextFormField(
+              key: _passwordKey,
+              onChanged: (value) async {
+                await Future.delayed(Duration(milliseconds: 1500));
+                _passwordKey.currentState.validate();
+              },
               textInputAction: TextInputAction.done,
               obscureText: _isSecure,
               decoration: InputDecoration(
