@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:yuk_chat/services/image_upload_service.dart';
 import 'package:yuk_chat/services/user_service.dart';
 
 class AuthService {
@@ -13,13 +16,20 @@ class AuthService {
     }
   }
 
-  static Future signUp(String email, String username, String password) async {
+  static Future signUp(
+      String email, String username, String password, File image) async {
     try {
       final UserCredential credential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
 
+      final String imageUrl = await ImageUploadService.getImageUrl(image);
+
       UserService.setNewUser(
-          credential.user.uid, credential.user.email, username);
+        credential.user.uid,
+        credential.user.email,
+        username,
+        imageUrl,
+      );
     } on FirebaseAuthException catch (e) {
       throw e.message;
     } catch (e) {

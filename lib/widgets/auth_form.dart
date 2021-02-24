@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -21,6 +23,14 @@ class _AuthFormState extends State<AuthForm> {
   String _email;
   String _username;
   String _password;
+  File _imagePick;
+
+  void _getImagePicked(File image) {
+    if (image == null) return;
+    setState(() {
+      _imagePick = image;
+    });
+  }
 
   void _passwordVisibility() {
     setState(() {
@@ -45,7 +55,7 @@ class _AuthFormState extends State<AuthForm> {
       if (_isLogin) {
         await AuthService.signInWithEmailPassword(_email, _password);
       } else {
-        await AuthService.signUp(_email, _username, _password);
+        await AuthService.signUp(_email, _username, _password, _imagePick);
       }
       setState(() {
         _isLoading = false;
@@ -78,7 +88,7 @@ class _AuthFormState extends State<AuthForm> {
               style: titleStyle,
             ),
             SizedBox(height: 16),
-            if (!_isLogin) UserPickImage(),
+            if (!_isLogin) UserPickImage(onImagePicked: _getImagePicked),
             TextFormField(
               key: _emailKey,
               onChanged: (value) async {

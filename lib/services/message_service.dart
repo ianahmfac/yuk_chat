@@ -19,6 +19,7 @@ class MessageService {
       "createdAt": Timestamp.now(),
       "userId": uid,
       "username": user.username,
+      "imageUrl": user.imageUrl,
     });
   }
 }

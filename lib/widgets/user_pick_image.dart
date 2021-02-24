@@ -6,6 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:yuk_chat/shared/theme.dart';
 
 class UserPickImage extends StatefulWidget {
+  final Function onImagePicked;
+
+  const UserPickImage({Key key, @required this.onImagePicked})
+      : super(key: key);
   @override
   _UserPickImageState createState() => _UserPickImageState();
 }
@@ -22,6 +26,7 @@ class _UserPickImageState extends State<UserPickImage> {
       setState(() {
         _imagePicked = image;
       });
+      widget.onImagePicked(_imagePicked);
     }
   }
 

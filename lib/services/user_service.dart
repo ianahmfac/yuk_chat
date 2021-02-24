@@ -5,10 +5,12 @@ class UserService {
   static CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection("users");
 
-  static Future setNewUser(String uid, String email, String username) async {
+  static Future setNewUser(
+      String uid, String email, String username, String imageUrl) async {
     await _collectionRef.doc(uid).set({
       "email": email,
       "username": username,
+      "imageUrl": imageUrl,
     });
   }
 
@@ -17,7 +19,8 @@ class UserService {
     final Map<String, dynamic> user = doc.data();
     return UserApp(
       email: user["email"],
-      username: user["email"],
+      username: user["username"],
+      imageUrl: user["imageUrl"],
     );
   }
 }

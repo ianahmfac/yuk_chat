@@ -17,6 +17,7 @@ class Messages extends StatelessWidget {
         }
         final List<QueryDocumentSnapshot> messages = snapshot.data.docs;
         return ListView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 8),
           reverse: true,
           itemCount: messages.length,
           itemBuilder: (context, index) {
@@ -25,7 +26,8 @@ class Messages extends StatelessWidget {
             final String username = messages[index]["username"];
             final Timestamp timestamp = messages[index]["createdAt"];
             final DateTime time = DateTime.parse(timestamp.toDate().toString());
-            return ChatBubble(msg, userId, username, time);
+            final String imageUrl = messages[index]["imageUrl"];
+            return ChatBubble(msg, userId, username, time, imageUrl);
           },
         );
       },
