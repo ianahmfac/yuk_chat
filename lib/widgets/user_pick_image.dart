@@ -20,7 +20,9 @@ class _UserPickImageState extends State<UserPickImage> {
   void _pickImage(bool isFromCamera) async {
     final pick = ImagePicker();
     final PickedFile filePicked = await pick.getImage(
-        source: isFromCamera ? ImageSource.camera : ImageSource.gallery);
+      source: isFromCamera ? ImageSource.camera : ImageSource.gallery,
+      imageQuality: 75,
+    );
     if (filePicked != null) {
       final File image = File(filePicked.path);
       setState(() {
