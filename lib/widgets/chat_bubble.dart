@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:yuk_chat/models/message_model.dart';
 import 'package:yuk_chat/services/auth_service.dart';
 import 'package:yuk_chat/services/message_service.dart';
 import 'package:yuk_chat/shared/theme.dart';
 
 class ChatBubble extends StatelessWidget {
-  final String id;
-  final String message;
-  final String userId;
-  final String username;
-  final DateTime time;
-  final String imageUrl;
-  ChatBubble(this.id, this.message, this.userId, this.username, this.time,
-      this.imageUrl);
+  final MessageModel msg;
+
+  const ChatBubble({Key key, this.msg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool _isMe = userId == AuthService.currentUser().uid;
+    bool _isMe = msg.user.userId == AuthService.currentUser().uid;
     final Widget _profilePhoto = CircleAvatar(
-      child: (imageUrl == "") ? Icon(Icons.person) : null,
-      backgroundImage: (imageUrl == "") ? null : NetworkImage(imageUrl),
+      child: (msg.user.imageUrl == "") ? Icon(Icons.person) : null,
+      backgroundImage:
+          (msg.user.imageUrl == "") ? null : NetworkImage(msg.user.imageUrl),
     );
     BorderRadius rad = BorderRadius.only(
       topLeft: Radius.circular(20),
@@ -57,7 +54,7 @@ class ChatBubble extends StatelessWidget {
               leading: Icon(Icons.copy),
               title: Text("Salin Pesan"),
               onTap: () async {
-                await Clipboard.setData(ClipboardData(text: message));
+                await Clipboard.setData(ClipboardData(text: msg.msg));
                 Navigator.pop(context);
                 _showCopySnackbar(
                     "Pesan berhasil disalin", Theme.of(context).accentColor);
@@ -70,7 +67,7 @@ class ChatBubble extends StatelessWidget {
                     leading: Icon(Icons.delete),
                     title: Text("Hapus Pesan"),
                     onTap: () {
-                      MessageService.deleteMessage(id);
+                      MessageService.deleteMessage(msg.id);
                       Navigator.of(context).pop();
                       _showCopySnackbar("Pesan berhasil dihapus",
                           Theme.of(context).errorColor, Colors.white);
@@ -115,7 +112,7 @@ class ChatBubble extends StatelessWidget {
                       _isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _isMe ? "saya" : username,
+                      _isMe ? "saya" : msg.user.username,
                       style: titleStyle.copyWith(
                         fontSize: 14,
                         color: Theme.of(context).primaryColorDark,
@@ -123,7 +120,7 @@ class ChatBubble extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      message,
+                      msg.msg,
                       style: TextStyle(
                         color: Theme.of(context).primaryColorDark,
                         fontSize: 18,
@@ -134,7 +131,7 @@ class ChatBubble extends StatelessWidget {
                       alignment:
                           _isMe ? Alignment.centerLeft : Alignment.centerRight,
                       child: Text(
-                        DateFormat.Hm().format(time),
+                        DateFormat.Hm().format(msg.time),
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: 10,

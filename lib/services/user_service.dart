@@ -18,6 +18,7 @@ class UserService {
     final DocumentSnapshot doc = await _collectionRef.doc(uid).get();
     final Map<String, dynamic> user = doc.data();
     return UserApp(
+      userId: uid,
       email: user["email"],
       username: user["username"],
       imageUrl: user["imageUrl"],
