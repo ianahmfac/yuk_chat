@@ -21,13 +21,14 @@ class Messages extends StatelessWidget {
           reverse: true,
           itemCount: messages.length,
           itemBuilder: (context, index) {
+            final String id = messages[index]["id"];
             final String msg = messages[index]["text"];
             final String userId = messages[index]["userId"];
             final String username = messages[index]["username"];
             final Timestamp timestamp = messages[index]["createdAt"];
             final DateTime time = DateTime.parse(timestamp.toDate().toString());
             final String imageUrl = messages[index]["imageUrl"];
-            return ChatBubble(msg, userId, username, time, imageUrl);
+            return ChatBubble(id, msg, userId, username, time, imageUrl);
           },
         );
       },

@@ -14,12 +14,18 @@ class MessageService {
   static Future sendMessage(String msg) async {
     String uid = AuthService.currentUser().uid;
     UserApp user = await UserService.getUser(uid);
-    _ref.add({
+    Timestamp time = Timestamp.now();
+    _ref.doc(uid + time.toString()).set({
+      "id": uid + time.toString(),
       "text": msg,
-      "createdAt": Timestamp.now(),
+      "createdAt": time,
       "userId": uid,
       "username": user.username,
       "imageUrl": user.imageUrl,
     });
+  }
+
+  static void deleteMessage(String msgId) async {
+    await _ref.doc(msgId).delete();
   }
 }

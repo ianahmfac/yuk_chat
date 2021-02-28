@@ -49,7 +49,7 @@ class _ChatInputState extends State<ChatInput> {
                   ),
                   keyboardType: TextInputType.multiline,
                   minLines: 1,
-                  maxLines: null,
+                  maxLines: 5,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (value) {
                     setState(() {
